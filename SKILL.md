@@ -27,6 +27,7 @@ After reviewing the universal checklist below, read the relevant reference files
 | `references/offensive-perspective.md` | **Always read this first** for any security review. Covers what pentesters actually exploit, vulnerability chains, red flags in code review, and the questions to ask every endpoint. |
 | `references/python-fastapi.md` | Python / FastAPI / SQLAlchemy / Postgres implementation patterns |
 | `references/typescript-nextjs.md` | TypeScript / Next.js / Supabase implementation patterns |
+| `references/go.md` | Go / net/http / Chi / Gin / database/sql / GORM patterns |
 
 If the project uses a stack not listed here, apply the universal principles below and adapt
 the patterns from the closest reference file. Always read the offensive perspective
