@@ -1,6 +1,6 @@
 # Security Review Skill
 
-A Claude skill for catching security vulnerabilities before they ship — informed by real-world penetration testing experience.
+A Claude skill for catching security vulnerabilities before they ship, informed by real-world penetration testing experience.
 
 ## What It Does
 
