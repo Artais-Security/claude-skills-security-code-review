@@ -19,7 +19,10 @@ security-review/
     │                                        code review red flags, per-endpoint questions
     ├── owasp-top-10.md                    — OWASP Top 10 (2021) deep-dives with CWE
     │                                        mappings, attack patterns, checklist gap analysis
-    └── <stack-specific references>         — Implementation patterns per technology stack
+    ├── python.md                          — Python stdlib and general security patterns
+    ├── python-fastapi.md                  — FastAPI / SQLAlchemy / Pydantic patterns
+    ├── typescript-nextjs.md               — Next.js / Supabase patterns
+    └── go.md                              — Go / net/http / Chi / Gin / GORM patterns
 ```
 
 The core skill (SKILL.md + offensive perspective) is entirely language-agnostic. Stack-specific reference files provide concrete code patterns for particular frameworks and are only loaded when relevant.
