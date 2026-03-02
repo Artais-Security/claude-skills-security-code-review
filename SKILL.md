@@ -25,6 +25,7 @@ After reviewing the universal checklist below, read the relevant reference files
 | Reference | When to Read |
 |-----------|-------------|
 | `references/offensive-perspective.md` | **Always read this first** for any security review. Covers what pentesters actually exploit, vulnerability chains, red flags in code review, and the questions to ask every endpoint. |
+| `references/owasp-top-10.md` | OWASP Top 10 (2021) deep-dives with CWE mappings — read for formal vulnerability classification, compliance reviews, or to cover checklist gaps (Insecure Design, Integrity Failures, Logging/Monitoring) |
 | `references/python-fastapi.md` | Python / FastAPI / SQLAlchemy / Postgres implementation patterns |
 | `references/typescript-nextjs.md` | TypeScript / Next.js / Supabase implementation patterns |
 | `references/go.md` | Go / net/http / Chi / Gin / database/sql / GORM patterns |

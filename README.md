@@ -17,6 +17,8 @@ security-review/
 └── references/
     ├── offensive-perspective.md            — Attacker methodology, vulnerability chains,
     │                                        code review red flags, per-endpoint questions
+    ├── owasp-top-10.md                    — OWASP Top 10 (2021) deep-dives with CWE
+    │                                        mappings, attack patterns, checklist gap analysis
     └── <stack-specific references>         — Implementation patterns per technology stack
 ```
 
@@ -39,7 +41,7 @@ The skill activates when Claude detects work involving:
 ## How It Works
 
 1. **SKILL.md** is loaded on every trigger — contains the language-agnostic checklist, activation criteria, and pre-deployment gate
-2. **offensive-perspective.md** is always loaded — covers attacker methodology, exploitation priorities, vulnerability chains, and code review red flags
+2. **offensive-perspective.md** is always loaded — covers attacker methodology, exploitation priorities, vulnerability chains, and code review red flags. **owasp-top-10.md** can be loaded as a complement for formal vulnerability classification, compliance mapping, or to cover checklist gaps
 3. If a **stack-specific reference** exists for the project's technology, it's loaded for concrete implementation patterns
 
 ## Adding a New Stack
