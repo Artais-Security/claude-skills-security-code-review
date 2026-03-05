@@ -31,6 +31,7 @@ ask every endpoint. These apply regardless of stack.
 | Topic | general.md | go.md | python.md | python-fastapi.md | nextjs.md |
 |-------|-----------|-------|-----------|-------------------|-----------|
 | Offensive (always read) | `references/offensive-perspective.md` | — | — | — | — |
+| OWASP gaps (A04/A08/A09) | `references/owasp-gaps.md` | — | — | — | — |
 | Auth & Authorization | `references/auth/general.md` | `references/auth/go.md` | `references/auth/python.md` | `references/auth/python-fastapi.md` | `references/auth/nextjs.md` |
 | Input Validation | `references/input/general.md` | `references/input/go.md` | `references/input/python.md` | `references/input/python-fastapi.md` | `references/input/nextjs.md` |
 | Injection Prevention | `references/injection/general.md` | `references/injection/go.md` | `references/injection/python.md` | `references/injection/python-fastapi.md` | `references/injection/nextjs.md` |
@@ -153,7 +154,9 @@ Work through each category. Read the corresponding topic reference files as you 
 **Reference:** `references/data/general.md` + stack file
 
 - [ ] API responses return only necessary fields (explicit response types, not full DB models)
-- [ ] No passwords, tokens, secrets, or PII in logs
+- [ ] No passwords, tokens, secrets, or PII in logs (redact before logging request bodies)
+- [ ] Security events logged: auth failures, authorization denials, admin actions
+- [ ] User input sanitized in log messages (prevent log injection via newlines)
 - [ ] Error responses generic for clients, detailed only in server-side logs
 - [ ] Stack traces never exposed to end users
 - [ ] Sensitive data encrypted at rest where required
@@ -167,6 +170,7 @@ Work through each category. Read the corresponding topic reference files as you 
 - [ ] Security headers configured: CSP, X-Frame-Options, X-Content-Type-Options
 - [ ] CORS configured with specific allowed origins (not wildcard in production)
 - [ ] Cookies set with Secure flag
+- [ ] CDN-hosted `<script>` and `<link>` tags include `integrity` (SRI) attributes
 - [ ] Dependencies up to date with no known vulnerabilities
 - [ ] Lock files committed for reproducible builds
 - [ ] Dependency scanning enabled (Dependabot, Snyk, `pip audit`, `npm audit`, `govulncheck`)
@@ -181,6 +185,9 @@ Read `references/offensive-perspective.md` and specifically:
 3. **Consider vulnerability chains** — how could a low-severity finding combine with another?
 4. **Prioritize like a pentester** — exposed secrets, IDOR, missing auth on internal endpoints,
    injection in search/filter/sort params first
+5. **Review OWASP gaps** — read `references/owasp-gaps.md` for design-level issues the
+   checklist doesn't catch: business logic abuse and race conditions (A04), insecure
+   deserialization/SRI/CI-CD integrity (A08), and security event logging (A09)
 
 ## Security Testing Checklist
 
