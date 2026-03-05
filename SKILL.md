@@ -22,14 +22,15 @@ Use the checklist below, then read topic reference files as you work through eac
 References are organized by **topic**, then by **stack**. Read the `general.md` for
 cross-stack non-obvious patterns, then the stack-specific file for implementation details.
 
-Always start with `references/core/general.md` — it contains pentester priority order,
-vulnerability chains, and red flags applicable to every review.
+Always start with `references/offensive-perspective.md` — it contains the pentester priority
+order, attacker playbook by category, vulnerability chains, red flags, and the questions to
+ask every endpoint. These apply regardless of stack.
 
 ### Topic → Stack Reference Map
 
 | Topic | general.md | go.md | python.md | python-fastapi.md | nextjs.md |
 |-------|-----------|-------|-----------|-------------------|-----------|
-| Core (always read) | `references/core/general.md` | — | — | — | — |
+| Offensive (always read) | `references/offensive-perspective.md` | — | — | — | — |
 | Auth & Authorization | `references/auth/general.md` | `references/auth/go.md` | `references/auth/python.md` | `references/auth/python-fastapi.md` | `references/auth/nextjs.md` |
 | Input Validation | `references/input/general.md` | `references/input/go.md` | `references/input/python.md` | `references/input/python-fastapi.md` | `references/input/nextjs.md` |
 | Injection Prevention | `references/injection/general.md` | `references/injection/go.md` | `references/injection/python.md` | `references/injection/python-fastapi.md` | `references/injection/nextjs.md` |
@@ -45,6 +46,23 @@ Skip topic files for areas not in scope for the current task.
 
 If the project uses a stack not listed here, read `general.md` for each topic and adapt
 from the closest stack reference.
+
+## Think Like an Attacker
+
+Before writing or reviewing security-sensitive code, consider what an attacker would try.
+For the full exploitation playbook, red flags, and questions to ask every endpoint, read
+`references/offensive-perspective.md`.
+
+1. **What's the attack surface?** Every input the user controls is a potential entry point —
+   URL params, headers, cookies, file uploads, JSON bodies, WebSocket messages.
+2. **What's the blast radius?** If this component is compromised, what else falls? A leaked
+   DB credential is worse than a leaked UI preference.
+3. **Where are the trust boundaries?** Data crossing from untrusted → trusted context needs
+   validation: client → server, user input → database, external API → your code, file upload → filesystem.
+4. **What does the attacker gain?** Prioritize protecting high-value targets: auth tokens,
+   payment data, PII, admin access, API keys with broad permissions.
+5. **What can be chained?** A low-severity info disclosure becomes critical when it enables
+   exploitation of another weakness. Think about how findings combine.
 
 ## Universal Security Checklist
 
@@ -156,11 +174,10 @@ Work through each category. Read the corresponding topic reference files as you 
 ## Offensive Review Pass
 
 After completing the checklist, do a second pass from the attacker's perspective.
-Read `references/core/general.md` for the pentester priority order, red flags list,
-and vulnerability chains — then apply them to the code in scope:
+Read `references/offensive-perspective.md` and specifically:
 
-1. **Run the red flags scan** — search the codebase for the patterns listed in `core/general.md`
-2. **Check each endpoint** with the trust boundary checklist: authentication, authorization, validation
+1. **Run the red flags scan** — search the codebase for the patterns in the red flags section
+2. **Check each endpoint** with the "Questions to Ask Every Endpoint" framework
 3. **Consider vulnerability chains** — how could a low-severity finding combine with another?
 4. **Prioritize like a pentester** — exposed secrets, IDOR, missing auth on internal endpoints,
    injection in search/filter/sort params first
