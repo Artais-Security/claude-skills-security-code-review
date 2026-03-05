@@ -13,19 +13,22 @@ When triggered, Claude performs a two-pass security review:
 
 ```
 security-review/
-├── SKILL.md                                — Universal checklist and routing logic
+├── SKILL.md                        — Universal checklist and routing logic
+├── local/
+│   └── claude-chat.md              — Local/chat-specific configuration
 └── references/
-    ├── offensive-perspective.md            — Attacker methodology, vulnerability chains,
-    │                                        code review red flags, per-endpoint questions
-    ├── owasp-top-10.md                    — OWASP Top 10 (2021) deep-dives with CWE
-    │                                        mappings, attack patterns, checklist gap analysis
-    ├── python.md                          — Python stdlib and general security patterns
-    ├── python-fastapi.md                  — FastAPI / SQLAlchemy / Pydantic patterns
-    ├── typescript-nextjs.md               — Next.js / Supabase patterns
-    └── go.md                              — Go / net/http / Chi / Gin / GORM patterns
+    ├── auth/                       — Authentication & authorization patterns
+    ├── core/                       — Core/general security patterns
+    ├── data/                       — Data exposure & storage patterns
+    ├── dependencies/               — Dependency & supply chain patterns
+    ├── injection/                  — Injection prevention patterns
+    ├── input/                      — Input validation patterns
+    ├── secrets/                    — Secrets management patterns
+    ├── transport/                  — Transport security patterns
+    └── web/                        — Web security patterns (XSS, CSRF, headers)
 ```
 
-The core skill (SKILL.md + offensive perspective) is entirely language-agnostic. Stack-specific reference files provide concrete code patterns for particular frameworks and are only loaded when relevant.
+Each category directory contains a `general.md` (language-agnostic) plus stack-specific files (`python.md`, `python-fastapi.md`, `nextjs.md`, `go.md`) where applicable. The core skill is entirely language-agnostic; stack-specific files are only loaded when relevant.
 
 ## How It Triggers
 
@@ -44,12 +47,12 @@ The skill activates when Claude detects work involving:
 ## How It Works
 
 1. **SKILL.md** is loaded on every trigger — contains the language-agnostic checklist, activation criteria, and pre-deployment gate
-2. **offensive-perspective.md** is always loaded — covers attacker methodology, exploitation priorities, vulnerability chains, and code review red flags. **owasp-top-10.md** can be loaded as a complement for formal vulnerability classification, compliance mapping, or to cover checklist gaps
-3. If a **stack-specific reference** exists for the project's technology, it's loaded for concrete implementation patterns
+2. For each relevant security category, the **`general.md`** reference is loaded for language-agnostic patterns
+3. If a **stack-specific reference** exists for the project's technology, it's loaded alongside the general file for concrete implementation patterns
 
 ## Adding a New Stack
 
-Create a new file in `references/` following the existing pattern. Each section should map 1:1 to the universal checklist categories in SKILL.md. Then add a row to the reference table in SKILL.md.
+Add a new stack-specific file (e.g., `ruby.md`) inside each relevant category directory under `references/`, following the pattern of existing stack files. Then add a row to the reference table in SKILL.md.
 
 ## Resources
 
